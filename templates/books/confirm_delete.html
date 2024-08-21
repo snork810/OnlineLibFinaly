@@ -1,0 +1,12 @@
+{% extends 'djangolib/layout.html'%}
+
+{% block title%} Подтверждение удаления {% endblock %}
+{% block content%}
+<h2>Подтвердите удаление</h2>
+<p>Вы уверены, что хотите удалить книгу "{{ book.title }}"?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+    <a href="{% url 'bookshelf' %}">Отмена</a>
+</form>
+{% endblock %}

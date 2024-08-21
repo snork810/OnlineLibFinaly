@@ -1,0 +1,20 @@
+{% extends 'djangolib/layout.html' %}
+
+{% block title %}Результаты поиска{% endblock %}
+{% block content %}
+    <h1>Результаты поиска</h1>
+
+    {% if author %}
+    <div class="authors_list">
+        <ul>
+            {% for a in author%}
+                 <a  href="{%url 'books_by' a.pk%}">{{a.name}}</a>
+            {%endfor%}
+        </ul>
+
+    </div>
+
+    {% else %}
+        <p>Автор не найден</p>
+    {% endif %}
+{% endblock %}

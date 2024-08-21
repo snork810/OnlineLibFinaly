@@ -1,0 +1,14 @@
+<{%extends 'djangolib/layout.html'%}
+    {% block title%} File List {% endblock %}
+{% block content%}
+<h1>Uploaded Text Files</h1>
+    <div class="card">
+
+
+        {% for file in files %}
+            <a href="{% url 'file_detail' file.pk %}">{{ file.title }}</a>
+        {% endfor %}
+
+    <a href="{% url 'addbook' %}">Upload another file</a>
+    </div>
+{% endblock %}

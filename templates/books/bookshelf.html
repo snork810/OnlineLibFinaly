@@ -1,0 +1,53 @@
+{% extends 'djangolib/layout.html'%}
+
+{% block title%} Книжная Полка {% endblock %}
+{% block content%}
+
+    <h1>Книжная полка</h1>
+    <p>Здесь хранятся книги которые вы читали ранее</p>
+        {% for entry in recently_opened_books %}
+    <div class="card">
+        <div class="card-body">
+            <img src="{{entry.book.cover_image.url}}" class="card-img-top" style="width: 20%; height: auto;" alt="Обложка книги">
+            <a href="{% url 'file_detail_lib' entry.book.pk %}"><h4 class="card-title">{{ entry.book.title }}</h4></a>
+            <a href="{{entry.book.author.id}}"><h6 class="card-subtitle mb-2 text-muted">{{ entry.book.author }}</h6></a>
+            <p class="card-text">{{ entry.book.summary }}</p>
+            (открыта {{ entry.opened_at|date:"H:i d.m.Y" }})
+        </div>
+    </div>
+        {% empty %}
+            <p>У вас пока нет недавно открытых книг.</p>
+        {% endfor %}
+        <h2>Избранное</h2>
+        {% for fav_file in favorites %}
+    <div class="card">
+        <div class="card-body">
+
+            <img src="{{fav_file.book.cover_image.url}}" class="card-img-top" style="width: 20%; height: auto;" alt="Обложка книги">
+            <a href="{% url 'file_detail_lib' fav_file.book.pk %}"><h4 class="card-title">{{ fav_file.book.title }}</h4></a>
+            <a href="{{fav_file.book.author.id}}"><h6 class="card-subtitle mb-2 text-muted">{{ fav_file.book.author }}</h6></a>
+            <p class="card-text">{{ fav_file.book.summary }}</p>
+        </div>
+    </div>
+        {% empty %}
+            <p>У вас пока нет избранных книг.</p>
+        {% endfor %}
+
+        <h2>Загруженное</h2>
+        {% for file in files %}
+    <div class="card">
+        <div class="card-body">
+             <img src="{{file.cover_image.url}}" class="card-img-top" style="width: 20%; height: auto;" alt="Обложка книги">
+            <a href="{% url 'file_detail_lib' file.pk %}"><h4 class="card-title">{{ file.title }}</h4></a>
+            <a href="{{file.author.id}}"><h6 class="card-subtitle mb-2 text-muted">{{ file.author }}</h6></a>
+            <p class="card-text">{{ file.summary }}</p>
+            <a href="{% url 'delete_no_moderated_book' file.pk %}"  onclick="return confirm('Вы уверены, что хотите удалить эту книгу?');">Удалить</a>
+        </div>
+
+    </div>
+        {% endfor %}
+
+
+    <button class="btn btn-warning"><a href="{% url 'addbook' %}">Добавить свою книгу</a></button>
+
+{% endblock %}

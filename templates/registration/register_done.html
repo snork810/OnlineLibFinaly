@@ -1,0 +1,10 @@
+{% extends 'djangolib/layout.html' %}
+ 
+{% block content %}
+<h1>Добро пожаловать!</h1>
+<div class="register_done">
+    <p >Здравствуйте {{user.first_name}} {{user.last_name}}!  Вы успешно зарегистрировались на сайте! Для входа в систему необходимо авторизоваться по этой <a href="{% url 'accounts:login' %}">ссылке</a>
+</p>
+</div>
+
+{% endblock %}
